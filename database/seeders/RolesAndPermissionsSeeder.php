@@ -64,6 +64,11 @@ class RolesAndPermissionsSeeder extends Seeder
          Permission::create(['guard_name' => 'admin', 'name' => 'create addresses']);
 
 
+         Permission::create(['guard_name' => 'admin', 'name' => 'edit admins']);
+         Permission::create(['guard_name' => 'admin', 'name' => 'delete admins']);
+         Permission::create(['guard_name' => 'admin', 'name' => 'create admins']);
+
+
          $role = Role::create(['guard_name' => 'admin','name' => 'admin']);
          $role->givePermissionTo([
             'create categories',
