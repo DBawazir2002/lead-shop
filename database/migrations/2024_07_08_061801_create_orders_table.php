@@ -22,7 +22,8 @@ return new class extends Migration
             $table->unsignedBigInteger('shipping_addresses_id');
             $table->foreign('shipping_addresses_id')
                   ->references('id')
-                  ->on('shipping_addresses');
+                  ->on('shipping_addresses')
+                  ->onDelete('cascade');
             $table->timestamps();
         });
     }

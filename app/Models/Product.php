@@ -22,9 +22,17 @@ class Product extends Model
         'category_id',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            // 'price' => 'decimal',
+            'category_id' => 'object',
+        ];
+    }
+
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class,'category_id');
     }
 
     public function cards(): BelongsToMany

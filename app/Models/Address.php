@@ -11,11 +11,20 @@ class Address extends Model
     use HasFactory;
 
     protected $fillable = [
-        'country',
-        'city',
+        'country_id',
+        'city_id',
         'street',
-        'is_active'
+        // 'is_active'
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'country_id' => 'object',
+            'city_id' => 'object',
+            'street' => 'string'
+        ];
+    }
 
     public function country(): BelongsTo
     {
