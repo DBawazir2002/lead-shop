@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cards', function (Blueprint $table) {
+        Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantity');
-         //   $table->double('total');
-         //   $table->decimal('total', 8, 2) like 9999999.25 or 25.12
-            $table->decimal('total', 8, 2);
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cards');
+        Schema::dropIfExists('countries');
     }
 };

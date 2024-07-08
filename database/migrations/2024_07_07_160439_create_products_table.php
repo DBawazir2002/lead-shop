@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->double('price');
+          //  $table->double('price');
+            $table->decimal('price', 8, 2);
             $table->text('description');
             $table->integer('stock')->default(0);
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
