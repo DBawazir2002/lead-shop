@@ -19,11 +19,6 @@ return new class extends Migration
             $table->string('status');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();
-            $table->unsignedBigInteger('shipping_addresses_id');
-            $table->foreign('shipping_addresses_id')
-                  ->references('id')
-                  ->on('shipping_addresses')
-                  ->onDelete('cascade');
             $table->timestamps();
         });
     }

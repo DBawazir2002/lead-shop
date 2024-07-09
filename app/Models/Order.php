@@ -19,16 +19,15 @@ class Order extends Model
         'status',
         'user_id',
         'payment_id',
-        'shipping_addresses_id'
     ];
 
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }
 
-    public function shipping_addresses(): HasOne
+    public function order_address(): HasOne
     {
-        return $this->hasOne(ShippingAddress::class,'shipping_addresses_id');
+        return $this->hasOne(OrderAddress::class);
     }
 
     public function order_items(): HasMany
