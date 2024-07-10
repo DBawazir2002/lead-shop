@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->decimal('price', 8, 2);
             $table->date('date');
-            $table->foreign('code')->references('code')->on('coupons');
+            $table->string('code_coupon')->nullable();
             $table->string('status');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('payment_id')->constrained('payments')->cascadeOnDelete();

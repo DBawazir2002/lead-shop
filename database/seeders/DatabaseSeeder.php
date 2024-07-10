@@ -32,6 +32,13 @@ class DatabaseSeeder extends Seeder
             'level' => 'super-admin'
         ])->assignRole('super-admin');
 
+        Admin::create([
+            'name' => 'admin',
+            'email'=> 'admin@gmail.com',
+            'password' => Hash::make('password'),
+        //    'email_verified_at' => now(),
+        ])->assignRole('admin');
+
         User::create([
             'name' => 'user',
             'email' => 'user@gmail.com',
