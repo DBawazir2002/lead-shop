@@ -7,6 +7,7 @@ use App\Models\Admin;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,13 +25,15 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RolesAndPermissionsSeeder::class);
 
-        Admin::create([
+       $super_admin = Admin::create([
             'name' => 'super-admin',
             'email'=> 'superadmin@gmail.com',
             'password' => Hash::make('password'),
         //    'email_verified_at' => now(),
             'level' => 'super-admin'
-        ])->assignRole('super-admin');
+        ]);
+        // $super_admin->assignRole('super-admin');
+        // $super_admin->givePermissionTo('create users');
 
         Admin::create([
             'name' => 'admin',

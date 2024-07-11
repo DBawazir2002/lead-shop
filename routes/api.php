@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\VerificationController;
 use Illuminate\Http\Request;
@@ -19,11 +20,10 @@ Route::get('/email/verify/{id}', [VerificationController::class,'verify'])->name
 Route::get('/email/resend/{id}', [VerificationController::class,'resend'])->name('verification.resend');
 
 
-Route::prefix('admin')->middleware(['auth:sanctum','role:admin|super-admin'])->group(function(){
-    Route::get('/g',function () {
-        return ( auth()->user()->hasRole('super-admin') == true) ? 'You are super admin' : 'error';
-    });
+Route::prefix('manager')->middleware(['auth:sanctum','role:admin|super-admin'])->group(function(){
 
     Route::apiResource('users',UserController::class);
+
+    Route::apiResource('countries',CountryController::class);
 });
 

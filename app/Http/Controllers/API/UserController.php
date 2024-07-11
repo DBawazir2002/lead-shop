@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Interfaces\User\UserServiceInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,9 +44,14 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $this->userService->updateUser($user, $request->all());
+        $user = $this->userService->updateUser($user,$request->validated());
+       return response()->json([
+        'status' => true,
+        'message' => 'updated successfully',
+        'data' => $user
+       ]);
     }
 
     /**
@@ -53,6 +59,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        return $this->userService->deleteUser($user);
+        $is_deleted = $this->userService->deleteUser($user);
+        return response()->json([
+            'status' => true,
+            'message' => ($is_deleted) ? 'deleted successfully' : 'Error occur..',
+            'data' => []
+           ]);
     }
 }

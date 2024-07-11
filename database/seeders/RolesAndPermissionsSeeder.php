@@ -63,14 +63,21 @@ class RolesAndPermissionsSeeder extends Seeder
          Permission::create(['guard_name' => 'admin', 'name' => 'delete addresses']);
          Permission::create(['guard_name' => 'admin', 'name' => 'create addresses']);
 
-
          Permission::create(['guard_name' => 'admin', 'name' => 'edit admins']);
          Permission::create(['guard_name' => 'admin', 'name' => 'delete admins']);
          Permission::create(['guard_name' => 'admin', 'name' => 'create admins']);
 
+         Permission::create(['guard_name' => 'admin', 'name' => 'edit countries']);
+         Permission::create(['guard_name' => 'admin', 'name' => 'delete countries']);
+         Permission::create(['guard_name' => 'admin', 'name' => 'create countries']);
 
-         $role = Role::create(['guard_name' => 'admin','name' => 'admin']);
-         $role->givePermissionTo([
+         Permission::create(['guard_name' => 'admin', 'name' => 'edit cities']);
+         Permission::create(['guard_name' => 'admin', 'name' => 'delete cities']);
+         Permission::create(['guard_name' => 'admin', 'name' => 'create cities']);
+
+
+         $admin = Role::create(['guard_name' => 'admin','name' => 'admin']);
+         $admin->givePermissionTo([
             'create categories',
             'edit categories',
             'delete categories',
@@ -88,7 +95,14 @@ class RolesAndPermissionsSeeder extends Seeder
             'create products',
             'edit products',
             'delete products',
+            'edit countries',
+            'create countries',
+            'delete countries',
+            'edit cities',
+            'create cities',
+            'delete cities',
         ]);
+
         //  $role->givePermissionTo([
         //     'create categories',
         //     'edit categories',

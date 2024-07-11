@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Repositories;
+use App\Interfaces\City\CityRepositoryInterface;
 
-class CityRepository
+class CityRepository implements CityRepositoryInterface
 {
     /**
      * Create a new class instance.

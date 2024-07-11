@@ -8,7 +8,7 @@ use App\Models\User;
 
 class UserService implements UserServiceInterface
 {
-    protected $userRepository;
+    private $userRepository;
     /**
      * Create a new class instance.
      */
@@ -38,6 +38,10 @@ class UserService implements UserServiceInterface
     }
 
     public function deleteUser(User $user){
-        return $this->userRepository->delete($user);
+        $is_deleted = false;
+        if(auth()->user()->hasPermissionTo('delete users')){
+             $is_deleted = $this->userRepository->delete($user);
+        }
+        return $is_deleted;
     }
 }

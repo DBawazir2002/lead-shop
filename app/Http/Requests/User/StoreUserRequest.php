@@ -11,7 +11,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return (auth()->check() && auth()->user()->hasRole('admin') && auth()->user()->hasPermission('create users'));
+        return (auth()->check() && (auth()->user()->hasRole('admin') or auth()->user()->hasRole('super-admin')) && auth()->user()->hasPermissionTo('create users'));
     }
 
     /**
@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|alpha_num|min:3|max:25',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:8|max:35',
-            'phone' => 'required|numeric',
+            'phone' => 'required|numeric|unique:users,phone',
         ];
     }
 }
