@@ -101,6 +101,9 @@ class RolesAndPermissionsSeeder extends Seeder
             'edit cities',
             'create cities',
             'delete cities',
+            'create addresses',
+            'edit addresses',
+            'delete addresses',
         ]);
 
         //  $role->givePermissionTo([

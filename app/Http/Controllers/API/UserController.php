@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Address\StoreAddressRequest;
+use App\Http\Requests\Address\UpdateAddressRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Interfaces\User\UserServiceInterface;
@@ -25,6 +27,33 @@ class UserController extends Controller
          'status' => true,
          'message' => 'returned successfully',
          'data' => $users
+        ]);
+    }
+
+    public function show(User $user){
+        $user = $this->userService->getUserById($user->id);
+        return response()->json([
+         'status' => true,
+         'message' => 'returned successfully',
+         'data' => $user
+        ]);
+    }
+
+    public function showProfile(){
+        $user = $this->userService->getUserById(auth()->user()->id);
+        return response()->json([
+         'status' => true,
+         'message' => 'returned successfully',
+         'data' => $user
+        ]);
+    }
+
+    public function showByEmail(User $user){
+        $user = $this->userService->getUserByEmail($user->email);
+        return response()->json([
+         'status' => true,
+         'message' => 'returned successfully',
+         'data' => $user
         ]);
     }
 
@@ -65,5 +94,33 @@ class UserController extends Controller
             'message' => ($is_deleted) ? 'deleted successfully' : 'Error occur..',
             'data' => []
            ]);
+    }
+
+    public function addAddress(StoreAddressRequest $request) {
+        // $user = $this->userService->addUserAddress(User::findOrFail(auth()->user()->id) ,$request->validated());
+        $user = $this->userService->addUserAddress(auth()->user(),$request->validated());
+       return response()->json([
+        'status' => true,
+        'message' => 'created successfully',
+        'data' => $user
+       ]);
+    }
+
+    public function updateAddress(UpdateAddressRequest $request, User $user){
+        $user = $this->userService->updateUserAddress(auth()->user(),$request->validated());
+       return response()->json([
+        'status' => true,
+        'message' => 'updated successfully',
+        'data' => $user
+       ]);
+    }
+
+    public function deleteAddress(){
+        $user = $this->userService->deleteUserAddress(auth()->user());
+       return response()->json([
+        'status' => true,
+        'message' => 'deleted successfully',
+        'data' => []
+       ]);
     }
 }

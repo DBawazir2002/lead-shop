@@ -18,7 +18,8 @@ class UserResource extends JsonResource
             'user_id' => $this->id,
             'user_name' =>$this->name,
             'user_email' => $this->email,
-            'user_phone' => $this->phone
+            'user_phone' => $this->phone,
+            'user_address' => $this->when(isset($this->address_id), new AddressResource($this->address))
         ];
     }
 }

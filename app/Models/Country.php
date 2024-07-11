@@ -19,4 +19,9 @@ class Country extends Model
     {
         return $this->hasMany(City::class);
     }
+
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
 }

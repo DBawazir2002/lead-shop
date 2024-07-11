@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Repositories;
+
+use App\Http\Resources\CityResource;
 use App\Interfaces\City\CityRepositoryInterface;
+use App\Models\City;
 
 class CityRepository implements CityRepositoryInterface
 {
@@ -11,5 +14,35 @@ class CityRepository implements CityRepositoryInterface
     public function __construct()
     {
         //
+    }
+
+    public function getAll(){
+        return CityResource::collection(City::with('country')->get());
+    }
+
+    public function getById($id){
+        return new CityResource(City::with('country')->findOrFail($id));
+    }
+
+    public function getByName(string $name){
+        return new CityResource(City::where('name', $name)->with('country')->first());
+    }
+
+    public function create(array $data){
+        $city = City::create([
+            'name' => $data['name'],
+            'country_id' => $data['country_id']
+        ]);
+
+        return new CityResource($city);
+    }
+
+    public function update(City $city, array $data){
+        $city->update($data);
+        return new CityResource($city);
+    }
+
+    public function delete(City $city){
+        return $city->delete();
     }
 }

@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Http\Resources\CountryResource;
 use App\Interfaces\Country\CountryServiceInterface;
-use App\Interfaces\Interfaces\CountryRepositoryInterface;
+use App\Interfaces\Country\CountryRepositoryInterface;
 use App\Models\Country;
 
 class CountryService implements CountryServiceInterface
@@ -19,27 +19,27 @@ class CountryService implements CountryServiceInterface
     }
 
     public function getAllCountries(){
-        return CountryResource::collection($this->countryRepository->getAll());
+        return $this->countryRepository->getAll();
     }
 
     public function getCountryById($id){
-        return new CountryResource($this->countryRepository->getById($id));
+        return $this->countryRepository->getById($id);
     }
 
     public function getCountryByName(string $name){
-        return new CountryResource($this->countryRepository->getByName($name));
+        return $this->countryRepository->getByName($name);
     }
 
     public function getCountryByCode(string $code){
-        return new CountryResource($this->countryRepository->getByCode($code));
+        return $this->countryRepository->getByCode($code);
     }
 
     public function createCountry(array $data) {
-        return new CountryResource($this->countryRepository->create($data));
+        return $this->countryRepository->create($data);
     }
 
     public function updateCountry(Country $country, array $data) {
-        return new CountryResource($this->countryRepository->update($country, $data));
+        return $this->countryRepository->update($country, $data);
     }
 
     public function deleteCountry(Country $country) {

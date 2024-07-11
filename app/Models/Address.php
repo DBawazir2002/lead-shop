@@ -13,18 +13,20 @@ class Address extends Model
     protected $fillable = [
         'country_id',
         'city_id',
+        'user_id',
         'street',
         // 'is_active'
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'country_id' => 'object',
-            'city_id' => 'object',
-            'street' => 'string'
-        ];
-    }
+    // protected function casts(): array
+    // {
+    //     return [
+    //         'country_id' => 'object',
+    //         'city_id' => 'object',
+    //         'user_id' => 'object',
+    //         'street' => 'string'
+    //     ];
+    // }
 
     public function country(): BelongsTo
     {
@@ -34,5 +36,10 @@ class Address extends Model
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

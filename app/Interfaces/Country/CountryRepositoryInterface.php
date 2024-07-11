@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Interfaces\Interfaces;
+namespace App\Interfaces\Country;
 
 use App\Models\Country;
 
@@ -10,7 +10,7 @@ interface CountryRepositoryInterface
     public function getById(int $id);
 
     public function getByName(string $name);
-    
+
     public function getByCode(string $code);
 
     public function create(array $data);

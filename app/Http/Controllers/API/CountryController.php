@@ -21,22 +21,33 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $countrys = $this->countryService->getAllCountries();
+        $countries = $this->countryService->getAllCountries();
         return response()->json([
          'status' => true,
          'message' => 'returned successfully',
-         'data' => $countrys
+         'data' => $countries
         ]);
     }
 
-    public function show($id){
-        $country = $this->countryService->getCountryById($id);
+    /**
+     * Show the Country
+     * @param $country
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
+    public function show(Country $country){
+        $country = $this->countryService->getCountryById($country->id);
         return response()->json([
             'status' => true,
             'message' => 'returned successfully',
             'data' => $country
            ]);
     }
+
+    /**
+     * Show the Country via its code
+     * @param string $code
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
 
     public function showByCode(string $code){
         $country = $this->countryService->getCountryByCode($code);
@@ -47,8 +58,13 @@ class CountryController extends Controller
            ]);
     }
 
-    public function showByName(string $code){
-        $country = $this->countryService->getCountryByCode($code);
+    /**
+     * Show the Country via its name
+     * @param string $name
+     * @return mixed|\Illuminate\Http\JsonResponse
+     */
+    public function showByName(string $name){
+        $country = $this->countryService->getCountryByName($name);
         return response()->json([
             'status' => true,
             'message' => 'returned successfully',
