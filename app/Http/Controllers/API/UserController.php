@@ -31,7 +31,7 @@ class UserController extends Controller
     }
 
     public function show(User $user){
-        $user = $this->userService->getUserById($user->id);
+        $user = $this->userService->convertToResource($this->userService->getUserById($user->id));
         return response()->json([
          'status' => true,
          'message' => 'returned successfully',
@@ -40,7 +40,7 @@ class UserController extends Controller
     }
 
     public function showProfile(){
-        $user = $this->userService->getUserById(auth()->user()->id);
+        $user = $this->userService->convertToResource($this->userService->getUserById(auth()->user()->id));
         return response()->json([
          'status' => true,
          'message' => 'returned successfully',
@@ -49,7 +49,7 @@ class UserController extends Controller
     }
 
     public function showByEmail(User $user){
-        $user = $this->userService->getUserByEmail($user->email);
+        $user = $this->userService->convertToResource($this->userService->getUserByEmail($user->email));
         return response()->json([
          'status' => true,
          'message' => 'returned successfully',
@@ -62,7 +62,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-       $user = $this->userService->createUser($request->validated());
+       $user = $this->userService->convertToResource($this->userService->createUser($request->validated()));
        return response()->json([
         'status' => true,
         'message' => 'created successfully',
@@ -75,7 +75,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user = $this->userService->updateUser($user,$request->validated());
+        $user = $this->userService->convertToResource($this->userService->updateUser($user,$request->validated()));
        return response()->json([
         'status' => true,
         'message' => 'updated successfully',
@@ -98,7 +98,7 @@ class UserController extends Controller
 
     public function addAddress(StoreAddressRequest $request) {
         // $user = $this->userService->addUserAddress(User::findOrFail(auth()->user()->id) ,$request->validated());
-        $user = $this->userService->addUserAddress(auth()->user(),$request->validated());
+        $user = $this->userService->convertToResource($this->userService->addUserAddress(auth()->user(),$request->validated()));
        return response()->json([
         'status' => true,
         'message' => 'created successfully',
@@ -107,7 +107,7 @@ class UserController extends Controller
     }
 
     public function updateAddress(UpdateAddressRequest $request, User $user){
-        $user = $this->userService->updateUserAddress(auth()->user(),$request->validated());
+        $user = $this->userService->convertToResource($this->userService->updateUserAddress(auth()->user(),$request->validated()));
        return response()->json([
         'status' => true,
         'message' => 'updated successfully',

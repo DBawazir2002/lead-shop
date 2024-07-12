@@ -19,27 +19,27 @@ class CountryService implements CountryServiceInterface
     }
 
     public function getAllCountries(){
-        return $this->countryRepository->getAll();
+        return CountryResource::collection($this->countryRepository->getAll());
     }
 
     public function getCountryById($id){
-        return $this->countryRepository->getById($id);
+        return new CountryResource($this->countryRepository->getById($id));
     }
 
     public function getCountryByName(string $name){
-        return $this->countryRepository->getByName($name);
+        return new CountryResource($this->countryRepository->getByName($name));
     }
 
     public function getCountryByCode(string $code){
-        return $this->countryRepository->getByCode($code);
+        return new CountryResource($this->countryRepository->getByCode($code));
     }
 
     public function createCountry(array $data) {
-        return $this->countryRepository->create($data);
+        return new CountryResource($this->countryRepository->create($data));
     }
 
     public function updateCountry(Country $country, array $data) {
-        return $this->countryRepository->update($country, $data);
+        return new CountryResource($this->countryRepository->update($country, $data));
     }
 
     public function deleteCountry(Country $country) {
@@ -49,5 +49,4 @@ class CountryService implements CountryServiceInterface
         }
         return $is_deleted;
     }
-
 }

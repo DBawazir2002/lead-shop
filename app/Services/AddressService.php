@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Interfaces\Address\AddressRepositoryInterface;
 use App\Interfaces\Address\AddressServiceInterface;
 use App\Models\Address;
+use App\Http\Resources\AddressResource;
 
 class AddressService implements AddressServiceInterface
 {
@@ -18,23 +19,19 @@ class AddressService implements AddressServiceInterface
     }
 
     public function getAllAddresses(){
-        return $this->addressService->getAll();
+        return AddressResource::collection($this->addressService->getAll());
     }
 
-    public function getAddressById($id){
-        return $this->addressService->getById($id);
-    }
-
-    public function getAddress($id){
-        return Address::findOrFail($id);
+    public function getAddressById($id, $user=null){
+        return ($user != null) ? Address::findOrFail($id): new AddressResource($this->addressService->getById($id));
     }
 
     public function createAddress(array $data){
-        return $this->addressService->create($data);
+        return new AddressResource($this->addressService->create($data));
     }
 
     public function updateAddress(Address $address,array $data){
-        return $this->addressService->update($address, $data);
+        return new AddressResource($this->addressService->update($address, $data));
     }
 
     public function deleteAddress(Address $address){

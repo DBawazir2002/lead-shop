@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Interfaces\City\CityRepositoryInterface;
 use App\Interfaces\City\CityServiceInterface;
 use App\Models\City;
+use App\Http\Resources\CityResource;
 
 class CityService implements CityServiceInterface
 {
@@ -18,23 +19,23 @@ class CityService implements CityServiceInterface
     }
 
     public function getAllCities(){
-        return $this->cityRepository->getAll();
+        return CityResource::collection($this->cityRepository->getAll());
     }
 
     public function getCityById($id){
-        return $this->cityRepository->getById($id);
+        return new CityResource($this->cityRepository->getById($id));
     }
 
     public function getCityByName(string $name){
-        return $this->cityRepository->getByName($name);
+        return new CityResource($this->cityRepository->getByName($name));
     }
 
     public function createCity(array $data){
-        return $this->cityRepository->create($data);
+        return new CityResource($this->cityRepository->create($data));
     }
 
     public function updateCity(City $city,array $data){
-        return $this->cityRepository->update($city, $data);
+        return new CityResource($this->cityRepository->update($city, $data));
     }
 
     public function deleteCity(City $city){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\RegisterUserRequest;
+use App\Interfaces\Auth\AuthServiceInterface;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,6 +13,10 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    private $authService;
+    public function __construct(AuthServiceInterface $authService){
+        $this->authService = $authService;
+    }
     public function login(Request $request)
     {
         $user = $admin = null;
@@ -44,20 +49,12 @@ class AuthController extends Controller
     public function register(RegisterUserRequest $request)
     {
         $user = null;
-        $request->validated();
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'phone' => $request->phone
-            ]);
-            $token = $user->createToken('API Token For User')->plainTextToken;
-            $user->sendEmailVerificationNotification();
+        $user = $this->authService->register($request->validated());
+        $token = $this->authService->generateAuthToken($user);
         return response()->json([
             'status' => (isset($user)) ? true : false,
-            'message' => (isset($user)) ? 'User created successfully' : 'Error occur, please try again.',
+            'message' => (isset($user)) ? 'User registered successfully' : 'Error occur, please try again.',
             'token' => (isset($user)) ? $token : null,
-            'data' => (isset($user)) ? $user->toArray() : []
         ]);
     }
 }

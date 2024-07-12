@@ -23,4 +23,7 @@ interface UserServiceInterface
     public function deleteUserAddress(User $user);
 
     public function updateUserAddress(User $user, array $data);
+
+    public function convertToResource(User $user);
+
 }

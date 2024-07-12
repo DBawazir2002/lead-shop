@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Http\Resources\UserResource;
 use App\Interfaces\User\UserRepositoryInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -18,15 +17,15 @@ class UserRepository implements UserRepositoryInterface
     }
 
     public function getAll(){
-        return UserResource::collection(User::get());
+        return User::get();
     }
 
     public function getById($id){
-        return new UserResource(User::findOrFail($id));
+        return User::findOrFail($id);
     }
 
     public function getByEmail(string $email){
-        return new UserResource(User::where('email', $email)->first());
+        return User::where('email', $email)->first();
     }
 
     public function create(array $data){
@@ -37,12 +36,12 @@ class UserRepository implements UserRepositoryInterface
             'phone'=> $data['phone'],
         ]);
 
-        return new UserResource($user);
+        return $user;
     }
 
     public function update(User $user, array $data){
         $user->update($data);
-        return new UserResource($user);
+        return $user;
     }
 
     public function delete(User $user){

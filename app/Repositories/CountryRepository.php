@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Http\Resources\CountryResource;
 use App\Interfaces\Country\CountryRepositoryInterface;
 use App\Models\Country;
 class CountryRepository implements CountryRepositoryInterface
@@ -16,19 +15,19 @@ class CountryRepository implements CountryRepositoryInterface
     }
 
     public function getAll(){
-        return CountryResource::collection(Country::with('cities')->get());
+        return Country::with('cities')->get();
     }
 
     public function getById($id){
-        return new CountryResource(Country::with('cities')->findOrFail($id));
+        return Country::with('cities')->findOrFail($id);
     }
 
     public function getByCode(string $code){
-        return new CountryResource(Country::where('code', $code)->with('cities')->first());
+        return Country::where('code', $code)->with('cities')->first();
     }
 
     public function getByName(string $name){
-        return new CountryResource(Country::where('name', $name)->with('cities')->first());
+        return Country::where('name', $name)->with('cities')->first();
     }
 
     public function create(array $data){
@@ -37,12 +36,12 @@ class CountryRepository implements CountryRepositoryInterface
             'code'=> $data['code'],
         ]);
 
-        return new CountryResource($country);
+        return $country;
     }
 
     public function update(Country $country, array $data){
         $country->update($data);
-        return new CountryResource($country);
+        return $country;
     }
 
     public function delete(Country $country){

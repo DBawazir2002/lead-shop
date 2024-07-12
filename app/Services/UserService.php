@@ -7,6 +7,7 @@ use App\Interfaces\Address\AddressServiceInterface;
 use App\Interfaces\User\UserRepositoryInterface;
 use App\Interfaces\User\UserServiceInterface;
 use App\Models\User;
+use App\Http\Resources\UserResource;
 
 class UserService implements UserServiceInterface
 {
@@ -21,7 +22,7 @@ class UserService implements UserServiceInterface
     }
 
     public function getAllUsers(){
-        return $this->userRepository->getAll();
+        return UserResource::collection($this->userRepository->getAll());
     }
 
     public function getUserById($id){
@@ -48,6 +49,10 @@ class UserService implements UserServiceInterface
         return $is_deleted;
     }
 
+    public function convertToResource(User $user){
+        return new UserResource($user);
+    }
+
     public function addUserAddress(User $user, array $data){
        // $user->address()->save($data);
        if($user->address_id == null){
@@ -60,14 +65,20 @@ class UserService implements UserServiceInterface
 
     public function updateUserAddress(User $user, array $data){
         // $user->address()->save($data);
-        $data['user_id'] = $user->id;
-        return $this->addressService->updateAddress($this->addressService->getAddress($user->address_id),$data);
+
+        if($user->address_id != null){
+            $data['user_id'] = $user->id;
+            $this->addressService->updateAddress($this->addressService->getAddressById($user->address_id,$user),$data);
+        }
+        return $user;
      }
 
      public function deleteUserAddress(User $user){
-        $this->addressService->deleteAddress($this->addressService->getAddress($user->address_id));
-        $data['address_id'] = null;
-        return $this->updateUser($user, $data);
-
+        if($user->address_id != null){
+            $this->addressService->deleteAddress($this->addressService->getAddressById($user->address_id,$user));
+            $data['address_id'] = null;
+            $this->updateUser($user, $data);
+        }
+        return $user;
      }
 }
