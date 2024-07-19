@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Interfaces\Address\AddressRepositoryInterface;
 use App\Interfaces\Address\AddressServiceInterface;
+use App\Interfaces\Admin\AdminRepositoryInterface;
+use App\Interfaces\Admin\AdminServiceInterface;
 use App\Interfaces\Auth\AuthServiceInterface;
 use App\Interfaces\City\CityRepositoryInterface;
 use App\Interfaces\City\CityServiceInterface;
@@ -13,9 +15,11 @@ use App\Repositories\UserRepository;
 use App\Interfaces\User\UserRepositoryInterface;
 use App\Interfaces\User\UserServiceInterface;
 use App\Repositories\AddressRepository;
+use App\Repositories\AdminRepository;
 use App\Repositories\CityRepository;
 use App\Repositories\CountryRepository;
 use App\Services\AddressService;
+use App\Services\AdminService;
 use App\Services\AuthService;
 use App\Services\CityService;
 use App\Services\CountryService;
@@ -42,6 +46,9 @@ class UserServiceProvider extends ServiceProvider
        $this->app->bind(AddressServiceInterface::class, AddressService::class);
 
        $this->app->bind(AuthServiceInterface::class, AuthService::class);
+
+       $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
+       $this->app->bind(AdminServiceInterface::class, AdminService::class);
     }
 
     /**

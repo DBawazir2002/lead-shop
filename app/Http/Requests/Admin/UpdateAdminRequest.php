@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateUserRequest extends FormRequest
+class UpdateAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return (auth()->check() && (auth()->user()->hasRole('admin') or auth()->user()->hasRole('super-admin')) && auth()->user()->hasPermissionTo('edit users'));
+        return (auth()->check() && auth()->user()->hasRole('super-admin') && auth()->user()->hasPermissionTo('edit admins'));
     }
 
     /**
@@ -24,10 +24,9 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|required|alpha_num|min:3|max:25',
-            // 'email' => 'sometimes|required|email|unique:users,email,except,'.$this->id,
-            'email' => ['sometimes', 'required','email', Rule::unique('users')->ignore($this->user)],
+            'email' => ['sometimes', 'required','email', Rule::unique('admins')->ignore($this->admin)],
             'password' => 'sometimes|required|confirmed|min:8|max:35',
-            'phone' => ['sometimes', 'required','numeric', Rule::unique('users')->ignore($this->user)],
+            'level' => ['sometimes', 'required','string'],
         ];
     }
 }

@@ -66,6 +66,8 @@ class RolesAndPermissionsSeeder extends Seeder
          Permission::create(['guard_name' => 'admin', 'name' => 'edit admins']);
          Permission::create(['guard_name' => 'admin', 'name' => 'delete admins']);
          Permission::create(['guard_name' => 'admin', 'name' => 'create admins']);
+         Permission::create(['guard_name' => 'admin', 'name' => 'assign role']);
+         Permission::create(['guard_name' => 'admin', 'name' => 'remove role']);
 
          Permission::create(['guard_name' => 'admin', 'name' => 'edit countries']);
          Permission::create(['guard_name' => 'admin', 'name' => 'delete countries']);

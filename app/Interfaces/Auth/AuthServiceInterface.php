@@ -2,6 +2,8 @@
 
 namespace App\Interfaces\Auth;
 
+use App\Models\Admin;
+
 interface AuthServiceInterface
 {
     public function register(array $data);
@@ -11,6 +13,4 @@ interface AuthServiceInterface
     public function logout();
 
     public function generateAuthToken(object $obj);
-
-
 }

@@ -31,8 +31,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         //    'email_verified_at' => now(),
             'level' => 'super-admin'
-        ]);
-        // $super_admin->assignRole('super-admin');
+        ])->assignRole('super-admin');
         // $super_admin->givePermissionTo('create users');
 
         Admin::create([

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CityController;
 use App\Http\Controllers\API\CountryController;
@@ -29,7 +30,6 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function(){
 Route::get('/email/verify/{id}', [VerificationController::class,'verify'])->name('verification.verify');
 Route::get('/email/resend/{id}', [VerificationController::class,'resend'])->name('verification.resend');
 
-
 Route::prefix('manager')->middleware(['auth:sanctum','role:admin|super-admin'])->group(function(){
 
     Route::apiResource('users',UserController::class);
@@ -37,5 +37,13 @@ Route::prefix('manager')->middleware(['auth:sanctum','role:admin|super-admin'])-
     Route::apiResource('countries',CountryController::class);
 
     Route::apiResource('cities',CityController::class);
-});
 
+    Route::middleware(['role:super-admin'])->group(function(){
+        Route::apiResource('admins',AdminController::class);
+        
+    });
+
+
+
+
+});
