@@ -30,7 +30,7 @@ class CityController extends Controller
     }
 
     /**
-     * Show the Country
+     * Show the Category
      * @param $city
      * @return mixed|\Illuminate\Http\JsonResponse
      */

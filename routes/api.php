@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CityController;
 use App\Http\Controllers\API\CountryController;
 use App\Http\Controllers\API\UserController;
@@ -26,6 +27,9 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function(){
     });
 
 });
+
+Route::get('/categories', [CategoryController::class,'index']);
+
 // validation
 Route::get('/email/verify/{id}', [VerificationController::class,'verify'])->name('verification.verify');
 Route::get('/email/resend/{id}', [VerificationController::class,'resend'])->name('verification.resend');
@@ -38,9 +42,11 @@ Route::prefix('manager')->middleware(['auth:sanctum','role:admin|super-admin'])-
 
     Route::apiResource('cities',CityController::class);
 
+    Route::apiResource('categories',CategoryController::class);
+
     Route::middleware(['role:super-admin'])->group(function(){
         Route::apiResource('admins',AdminController::class);
-        
+
     });
 
 

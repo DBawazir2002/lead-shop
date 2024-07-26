@@ -9,7 +9,7 @@ use App\Interfaces\Admin\AdminServiceInterface;
 use App\Interfaces\Auth\AuthServiceInterface;
 use App\Interfaces\City\CityRepositoryInterface;
 use App\Interfaces\City\CityServiceInterface;
-use App\Interfaces\Country\CountryServiceInterface;
+use App\Interfaces\Country\categoryServiceInterface;
 use App\Interfaces\Country\CountryRepositoryInterface;
 use App\Repositories\UserRepository;
 use App\Interfaces\User\UserRepositoryInterface;
@@ -22,7 +22,7 @@ use App\Services\AddressService;
 use App\Services\AdminService;
 use App\Services\AuthService;
 use App\Services\CityService;
-use App\Services\CountryService;
+use App\Services\categoryService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,7 +37,7 @@ class UserServiceProvider extends ServiceProvider
        $this->app->bind(UserServiceInterface::class, UserService::class);
 
        $this->app->bind(CountryRepositoryInterface::class, CountryRepository::class);
-       $this->app->bind(CountryServiceInterface::class, CountryService::class);
+       $this->app->bind(categoryServiceInterface::class, categoryService::class);
 
        $this->app->bind(CityRepositoryInterface::class, CityRepository::class);
        $this->app->bind(CityServiceInterface::class, CityService::class);

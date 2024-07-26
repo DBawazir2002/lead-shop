@@ -23,8 +23,8 @@ class UpdateCountryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'required','string', Rule::unique('countries')->ignore($this->user)],
-            'code' => ['sometimes', 'required','string', Rule::unique('countries')->ignore($this->user)],
+            'name' => ['sometimes', 'required','string', Rule::unique('countries')->ignore($this->country)],
+            'code' => ['sometimes', 'required','string', Rule::unique('countries')->ignore($this->country)],
         ];
     }
 }

@@ -7,7 +7,7 @@ use App\Models\Country;
 interface CountryServiceInterface
 {
     public function getAllCountries();
-    
+
     public function getCountryById(int $id);
 
     public function getCountryByName(string $name);

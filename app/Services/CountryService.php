@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Http\Resources\CountryResource;
-use App\Interfaces\Country\CountryServiceInterface;
 use App\Interfaces\Country\CountryRepositoryInterface;
+use App\Interfaces\Country\CountryServiceInterface;
 use App\Models\Country;
 
 class CountryService implements CountryServiceInterface

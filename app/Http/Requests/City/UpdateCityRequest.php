@@ -23,7 +23,7 @@ class UpdateCityRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'required','string'],
-            'country_id' => ['sometimes', 'required',],
+            'Category_id' => ['sometimes', 'required',],
         ];
     }
 }
