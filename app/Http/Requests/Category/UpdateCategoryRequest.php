@@ -24,7 +24,6 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'required','string','min:3',Rule::unique('categories')->ignore($this->category)],
-            'slug' => ['sometimes', 'required','string', 'min:3',Rule::unique('categories')->ignore($this->category)],
             'description' => ['sometimes', 'required','string', 'min:3']
         ];
     }

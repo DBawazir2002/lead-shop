@@ -7,10 +7,13 @@ use App\Interfaces\Address\AddressServiceInterface;
 use App\Interfaces\Admin\AdminRepositoryInterface;
 use App\Interfaces\Admin\AdminServiceInterface;
 use App\Interfaces\Auth\AuthServiceInterface;
+use App\Interfaces\Category\CategoryRepositoryInterface;
+use App\Interfaces\Category\CategoryServiceInterface;
 use App\Interfaces\City\CityRepositoryInterface;
 use App\Interfaces\City\CityServiceInterface;
-use App\Interfaces\Country\categoryServiceInterface;
 use App\Interfaces\Country\CountryRepositoryInterface;
+use App\Interfaces\Country\CountryServiceInterface;
+use App\Repositories\CategoryRepository;
 use App\Repositories\UserRepository;
 use App\Interfaces\User\UserRepositoryInterface;
 use App\Interfaces\User\UserServiceInterface;
@@ -22,7 +25,8 @@ use App\Services\AddressService;
 use App\Services\AdminService;
 use App\Services\AuthService;
 use App\Services\CityService;
-use App\Services\categoryService;
+use App\Services\CategoryService;
+use App\Services\CountryService;
 use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,7 +41,7 @@ class UserServiceProvider extends ServiceProvider
        $this->app->bind(UserServiceInterface::class, UserService::class);
 
        $this->app->bind(CountryRepositoryInterface::class, CountryRepository::class);
-       $this->app->bind(categoryServiceInterface::class, categoryService::class);
+       $this->app->bind(CountryServiceInterface::class, CountryService::class);
 
        $this->app->bind(CityRepositoryInterface::class, CityRepository::class);
        $this->app->bind(CityServiceInterface::class, CityService::class);
@@ -49,6 +53,9 @@ class UserServiceProvider extends ServiceProvider
 
        $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
        $this->app->bind(AdminServiceInterface::class, AdminService::class);
+
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+        $this->app->bind(CategoryServiceInterface::class, CategoryService::class);
     }
 
     /**

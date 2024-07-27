@@ -22,11 +22,13 @@ class CategoryService implements CategoryServiceInterface
         return CategoryResourse::collection($this->categoryRepository->getAll());
     }
 
-    public function getCategoryById($id){
+    public function getCategoryById($id): CategoryResourse
+    {
         return new CategoryResourse($this->categoryRepository->getById($id));
     }
 
-    public function getByCategoryName(string $name){
+    public function getByCategoryName(string $name): CategoryResourse
+    {
         return new CategoryResourse($this->categoryRepository->getByName($name));
     }
 

@@ -6,14 +6,14 @@ use App\Models\Category;
 
 interface CategoryRepositoryInterface
 {
-    public function getAll() : Category;
+    public function getAll() ;
 
-    public function getById(int $id) : Category;
+    public function getById(int $id);
     public function getByName(string $name);
 
-    public function create(array $data) : Category;
+    public function create(array $data);
 
-    public function update(Category $category, array $data) : Category;
+    public function update(Category $category, array $data);
 
     public function delete(Category $category);
 }

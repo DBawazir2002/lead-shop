@@ -35,7 +35,7 @@ class CategoryController extends Controller
      * @return mixed|\Illuminate\Http\JsonResponse
      */
     public function show(Category $category){
-        $category = $this->categoryService->getCountryById($category->id);
+        $category = $this->categoryService->getCategoryById($category->id);
         return response()->json([
             'status' => true,
             'message' => 'returned successfully',

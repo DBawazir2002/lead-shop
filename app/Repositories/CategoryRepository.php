@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\Category\CategoryRepositoryInterface;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
@@ -15,27 +16,28 @@ class CategoryRepository implements CategoryRepositoryInterface
         //
     }
 
-    public function getAll() : Category{
-        return Category::all();
+    public function getAll() {
+        return Category::with('products')->get();
     }
 
-    public function getById(int $id) : Category{
-        return Category::findOrFail($id);
+    public function getById(int $id) {
+        return Category::with('products')->findOrFail($id);
     }
-    public function getByName(string $name) : Category{
-        return Category::where('name', $name)->first();
+    public function getByName(string $name) {
+        return Category::where('name', $name)->with('products')->first();
     }
 
-    public function create(array $data) : Category{
+    public function create(array $data) {
         $category = Category::create([
             'name' => $data['name'],
-            'slug'=> $data['slug'],
+            'slug'=> Str::slug($data['slug']),
             'description' => $data['description'],
         ]);
         return $category;
     }
 
-    public function update(Category $category, array $data) : Category{
+    public function update(Category $category, array $data) {
+        $data['slug'] = Str::slug($data['slug']);
         $category->update($data);
         return $category;
     }

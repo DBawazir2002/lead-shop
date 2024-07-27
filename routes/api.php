@@ -30,6 +30,8 @@ Route::prefix('user')->middleware('auth:sanctum')->group(function(){
 
 Route::get('/categories', [CategoryController::class,'index']);
 
+Route::get('/categories/{name}', [CategoryController::class,'showByName']);
+
 // validation
 Route::get('/email/verify/{id}', [VerificationController::class,'verify'])->name('verification.verify');
 Route::get('/email/resend/{id}', [VerificationController::class,'resend'])->name('verification.resend');
